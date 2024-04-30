@@ -1,0 +1,78 @@
+------>Pc configuration
+config terminal
+ip <ip address>
+ping <ip address>
+
+------>Router
+config terminal
+interface <>         //f0/0
+ip address <ip address> 255.255.255.0
+no shut
+exit
+exit
+ping <host ip address>
+
+------->Config VPCS3 - DHCP
+ip <ip address></Subnet Mask> <Default Gateway>
+ip dns <DNS server IP address>
+ip dhcp
+show ip
+*After this ping all the connection with each other and then u will get the answer of the linking of all the devices with the dhcp connection
+
+------->Config Router Password
+[Set Console Password]
+Router(Config)# line con0
+                login
+                password cisco
+
+[Set Telnet Password]
+Router(config)# line vty 0 4
+                login
+                password cisco
+     {Stop console timing out in case of inactivity}
+                line con 0
+                exec-timeout 0 0 
+                enable password cisco
+
+[Set enable secret password to peter]
+                 enable secret peter
+
+--------->RIP
+[Config Router]
+terminal
+interface <interface>
+ip address <ip address> 255.255.255.0
+no shut
+**if 2nd device connected to the router apply the same process
+
+[RIP config on ROuter]
+R1(Config)# router rip
+            version 2
+            network <Given in the tabe for the particular devicies>
+
+[To check the rip connection]
+show ip route
+
+----------> DHCP config router as server
+enable
+config t
+ip dhcp pool ipranges
+network <given> 255.255.255.0
+dns-server <given>
+default-router <given>
+lease 10
+{To exclude a particular ip}
+ip dhcp excluded-addresses <given> 
+
+[config router as client]
+enable
+config t
+no ip routing
+interface <given>
+ip address dhcp
+no shut
+
+
+
+
+
